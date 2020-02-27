@@ -6,13 +6,18 @@ public class Beanbag {
 	private String manufacturerId;
 	private short manufactureYear;
 	private byte manufactureMonth;
+	private int numberOf;
 	
 	int priceInPence;
 	
 	
 	String desc;
 	
-	boolean isReserved;
+	int reservations;
+	
+	public void setNumberOf(int numberOf) {
+		this.numberOf = numberOf;
+	}
 	
 	public void setManufacturerId(String id) {
 		this.manufacturerId = id;
@@ -35,10 +40,14 @@ public class Beanbag {
 	public void setDescription(String desc) {
 		this.desc = desc;
 	}
-	public void setIsReserved(boolean isReserved) {
-		this.isReserved = isReserved;
+	public void setReservations(int reserved) {
+		this.reservations = reserved;
 	}
 	
+
+	public int getNumberOf() {
+		return this.numberOf;
+	}
 	public String getManufacturerId() {
 		return this.manufacturerId;
 	}
@@ -60,12 +69,12 @@ public class Beanbag {
 	public String getDescription() {
 		return this.desc;
 	}
-	public boolean getIsReserved() {
-		return this.isReserved;
+	public int getReservations() {
+		return this.reservations;
 	}
 	
 	public Beanbag(String manufacturer, String name, 
-		    String id, short year, byte month) {
+		    String id, short year, byte month, int numberOf) {
 		this.name = name;
 		this.manufacturerName = manufacturer;
 		this.manufacturerId = id;
@@ -75,11 +84,12 @@ public class Beanbag {
 		this.priceInPence = 0;
 		this.desc = "";
 		
-		this.isReserved = false;
+		this.reservations = 0;
+		this.numberOf = numberOf;
 	}
 	
 	public Beanbag(String manufacturer, String name, 
-		    String id, short year, byte month, String description) {
+		    String id, short year, byte month, String description, int numberOf) {
 		this.name = name;
 		this.manufacturerName = manufacturer;
 		this.manufacturerId = id;
@@ -87,6 +97,8 @@ public class Beanbag {
 		this.manufactureMonth = month;
 		this.priceInPence = 0;
 		this.desc = description;
+		this.reservations = 0;
+		this.numberOf = numberOf;
 	}
 
 }

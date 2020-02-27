@@ -31,13 +31,7 @@ public class Store {
     	for (int i = 0; i<stockList.size(); i++) {
     		Beanbag b = (Beanbag) stockList.get(i);
     		if (b.getManufacturerId()==id) {
-    			if (b.getName()==name) {
-    				if (b.getManufacturerName()==manufacturer) {
-    					if (b.getDescription()=="") {
-    						throw new BeanBagMismatchException();
-    					}
-    				}
-    			}
+    			
     		}
     	}
     	
@@ -113,14 +107,21 @@ public class Store {
     ClassNotFoundException { }
 
     public int getNumberOfDifferentBeanBagsInStock() { 
-    	int count = 0;
-    	String[] prev_ids = new String[stockList.size()];
+    	ObjectArrayList previous = new ObjectArrayList();
     	for (int i = 0; i < stockList.size(); i++) {
-    		// TODO: finish
+    		
+    		boolean isInList = false;
+    		Beanbag b = (Beanbag) stockList.get(i);
+    		
+    		for (int n = 0; n < previous.size(); n++) {
+	    		if (b.getManufacturerId()==((Beanbag)previous.get(n)).getManufacturerId()) {
+	    			isInList = true;
+	    			break;
+	    		}
+	    	}
+    		if (!isInList) previous.add(b);
     	}
-
-    	
-    	return count;
+    	return previous.size();
     }
 
     public int getNumberOfSoldBeanBags() { return 0; }
