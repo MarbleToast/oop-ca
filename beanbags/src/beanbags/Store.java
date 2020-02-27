@@ -6,15 +6,73 @@ public class Store {
 	//TODO: Implement each function. 
 	//TODO: Need structures to handle current stock, reserved stock, and sold stock
 	
+	public ObjectArrayList stockList = new ObjectArrayList();
+	
+	private boolean isLegalID(String id) {
+		try {
+    		Long.parseLong(id, 16);
+    	}
+        catch (NumberFormatException e) {
+        	return false;
+        }
+		return true;
+	}
+	
     public void addBeanBags(int num, String manufacturer, String name, 
     String id, short year, byte month)
     throws IllegalNumberOfBeanBagsAddedException, BeanBagMismatchException,
-    IllegalIDException, InvalidMonthException { }
+    IllegalIDException, InvalidMonthException {
+    	
+    	if (num <= 0) throw new IllegalNumberOfBeanBagsAddedException();
+    	if (!(month >= 1 && month <= 12)) throw new InvalidMonthException();
+    	
+    	if (!isLegalID(id)) throw new IllegalIDException();
+    	
+    	for (int i = 0; i<stockList.size(); i++) {
+    		Beanbag b = (Beanbag) stockList.get(i);
+    		if (b.getManufacturerId()==id) {
+    			if (b.getName()==name) {
+    				if (b.getManufacturerName()==manufacturer) {
+    					if (b.getDescription()=="") {
+    						throw new BeanBagMismatchException();
+    					}
+    				}
+    			}
+    		}
+    	}
+    	
+    	for (int i = 0; i < num; i++) {
+    		stockList.add(new Beanbag(manufacturer, name, id, year, month));
+    	}
+    }
 
     public void addBeanBags(int num, String manufacturer, String name, 
     String id, short year, byte month, String information)
     throws IllegalNumberOfBeanBagsAddedException, BeanBagMismatchException,
-    IllegalIDException, InvalidMonthException { }
+    IllegalIDException, InvalidMonthException {
+
+    	if (num <= 0) throw new IllegalNumberOfBeanBagsAddedException();
+    	if (!(month >= 1 && month <= 12)) throw new InvalidMonthException();
+    	
+    	if (!isLegalID(id)) throw new IllegalIDException();
+    	
+    	for (int i = 0; i<stockList.size(); i++) {
+    		Beanbag b = (Beanbag) stockList.get(i);
+    		if (b.getManufacturerId()==id) {
+    			if (b.getName()==name) {
+    				if (b.getManufacturerName()==manufacturer) {
+    					if (b.getDescription()==information) {
+    						throw new BeanBagMismatchException();
+    					}
+    				}
+    			}
+    		}
+    	}
+    	
+    	for (int i = 0; i < num; i++) {
+    		stockList.add(new Beanbag(manufacturer, name, id, year, month, information));
+    	}
+    }
 
     public void setBeanBagPrice(String id, int priceInPence) 
     throws InvalidPriceException, BeanBagIDNotRecognisedException, IllegalIDException { }
@@ -33,19 +91,37 @@ public class Store {
     public void sellBeanBags(int reservationNumber)
     throws ReservationNumberNotRecognisedException { }
 
-    public int beanBagsInStock() { return 0; }
+    public int beanBagsInStock() { return stockList.size(); }
 
     public int reservedBeanBagsInStock() { return 0; }
 
     public int beanBagsInStock(String id) throws BeanBagIDNotRecognisedException,
-    IllegalIDException { return 0; }
+    IllegalIDException { 
+    	if (!isLegalID(id)) throw new IllegalIDException();
+    	int count = 0;
+    	for (int i = 0; i < stockList.size(); i++) {
+    		if (((Beanbag)stockList.get(i)).getManufacturerId() == id) count++;
+    	}
+    	if (count == 0) throw new BeanBagIDNotRecognisedException();
+    	
+    	return count;
+    }
 
     public void saveStoreContents(String filename) throws IOException { }
 
     public void loadStoreContents(String filename) throws IOException,
     ClassNotFoundException { }
 
-    public int getNumberOfDifferentBeanBagsInStock() { return 0; }
+    public int getNumberOfDifferentBeanBagsInStock() { 
+    	int count = 0;
+    	String[] prev_ids = new String[stockList.size()];
+    	for (int i = 0; i < stockList.size(); i++) {
+    		// TODO: finish
+    	}
+
+    	
+    	return count;
+    }
 
     public int getNumberOfSoldBeanBags() { return 0; }
 
@@ -62,7 +138,9 @@ public class Store {
     public String getBeanBagDetails(String id) throws
     BeanBagIDNotRecognisedException, IllegalIDException { return ""; }
 
-    public void empty() { }
+    public void empty() {
+    	stockList = new ObjectArrayList();
+    }
      
     public void resetSaleAndCostTracking() { }
      
