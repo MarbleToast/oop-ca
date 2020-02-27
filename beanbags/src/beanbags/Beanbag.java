@@ -9,6 +9,7 @@ public class Beanbag {
 	
 	int priceInPence;
 	
+	
 	String desc;
 	
 	boolean isReserved;
