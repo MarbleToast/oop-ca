@@ -4,16 +4,13 @@ public class Beanbag {
 	private String name;
 	private String manufacturerName;
 	private String manufacturerId;
-	private short manufactureYear;
-	private byte manufactureMonth;
 	private int numberOf;
 	
-	int priceInPence;
+	private int priceInPence;
 	
+	private String desc;
 	
-	String desc;
-	
-	int reservations;
+	private int reservations;
 	
 	public void setNumberOf(int numberOf) {
 		this.numberOf = numberOf;
@@ -27,12 +24,6 @@ public class Beanbag {
 	}
 	public void setManufacturerName(String manufacturerName) {
 		this.manufacturerName = manufacturerName;
-	}
-	public void setManufacturerYear(short manufactureYear) {
-		this.manufactureYear = manufactureYear;
-	}
-	public void setManufacturerMonth(byte manufactureMonth) {
-		this.manufactureMonth = manufactureMonth;
 	}
 	public void setPriceInPence(int priceInPence) {
 		this.priceInPence = priceInPence;
@@ -57,12 +48,6 @@ public class Beanbag {
 	public String getManufacturerName() {
 		return this.manufacturerName;
 	}
-	public short getManufacturerYear() {
-		return this.manufactureYear;
-	}
-	public byte getManufacturerMonth() {
-		return this.manufactureMonth;
-	}
 	public int getPriceInPence() {
 		return this.priceInPence;
 	}
@@ -73,15 +58,12 @@ public class Beanbag {
 		return this.reservations;
 	}
 	
-	public Beanbag(String manufacturer, String name, 
-		    String id, short year, byte month, int numberOf) {
+	public Beanbag(String manufacturer, String name, String id, int numberOf) {
 		this.name = name;
 		this.manufacturerName = manufacturer;
 		this.manufacturerId = id;
-		this.manufactureYear = year;
-		this.manufactureMonth = month;
 		
-		this.priceInPence = 0;
+		this.priceInPence = -1;
 		this.desc = "";
 		
 		this.reservations = 0;
@@ -89,16 +71,17 @@ public class Beanbag {
 	}
 	
 	public Beanbag(String manufacturer, String name, 
-		    String id, short year, byte month, String description, int numberOf) {
+		    String id, String description, int numberOf) {
 		this.name = name;
 		this.manufacturerName = manufacturer;
 		this.manufacturerId = id;
-		this.manufactureYear = year;
-		this.manufactureMonth = month;
+		
 		this.priceInPence = 0;
 		this.desc = description;
+		
 		this.reservations = 0;
 		this.numberOf = numberOf;
 	}
 
 }
+
