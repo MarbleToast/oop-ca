@@ -24,6 +24,15 @@ public class Store {
 		return true;
 	}
 	
+	private int getNewResID() {
+		int counter = 0;
+		for (int i = 0; i < reservationList.size(); i++) {
+			int res=((BeanbagReservation) reservationList.get(i)).getReservationId();
+			if (res>counter) counter=res; 
+		}
+	return counter+1;	
+	}
+	
 	private Beanbag checkStockListID(String id) {
 		for (int i = 0; i < stockList.size(); i++) {
 			Beanbag b = (Beanbag) stockList.get(i);
@@ -125,7 +134,7 @@ public class Store {
     		throw new InsufficientStockException();
     	}
     }
-
+    
     public int reserveBeanBags(int num, String id) throws BeanBagNotInStockException,
     InsufficientStockException, IllegalNumberOfBeanBagsReservedException,
     PriceNotSetException, BeanBagIDNotRecognisedException, IllegalIDException { 
@@ -142,8 +151,9 @@ public class Store {
     	
     	if (b.getNumberOf()-b.getReservations() >= num) { 
     		b.setReservations(b.getReservations()+num);
-	    	reservationList.add(new BeanbagReservation(id, num, ++reservationId, b.getPriceInPence()));
-	    	return reservationId; 
+    		int newResID = getNewResID();
+	    	reservationList.add(new BeanbagReservation(id, num, newResID, b.getPriceInPence()));
+	    	return newResID; 
     	} 
     	else {
     		throw new InsufficientStockException();
