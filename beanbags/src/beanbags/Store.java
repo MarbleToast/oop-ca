@@ -16,7 +16,7 @@ public class Store {
 
 	private boolean isLegalID(String id) {
 		try {
-    		Long.parseLong(id, 16);
+    		if (Long.parseLong(id, 16) < 0) return false;
     	}
         catch (NumberFormatException e) {
         	return false;
@@ -203,9 +203,10 @@ public class Store {
 
     public void saveStoreContents(String filename) throws IOException {
     	try {	 
+    		ObjectArrayList[] storeContents = new ObjectArrayList[] { stockList, batchList, reservationList, saleList};
             FileOutputStream fileOut = new FileOutputStream(filename);
             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-            objectOut.writeObject(stockList);
+            objectOut.writeObject(storeContents);
             objectOut.close();
         } 
     	catch (IOException ex) {
@@ -218,7 +219,11 @@ public class Store {
     	 try {
              FileInputStream fileIn = new FileInputStream(filename);
              ObjectInputStream objectIn = new ObjectInputStream(fileIn);
-             stockList = (ObjectArrayList) objectIn.readObject();
+             ObjectArrayList[] storeContents = (ObjectArrayList[]) objectIn.readObject();
+             stockList = storeContents[0];
+             batchList = storeContents[1];
+             reservationList = storeContents[2];
+             saleList = storeContents[3];
              objectIn.close();
          } 
     	 catch (IOException exIO) {
