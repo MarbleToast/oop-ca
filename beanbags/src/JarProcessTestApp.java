@@ -1,8 +1,7 @@
-import beanbags.BadStore;
+
 import beanbags.BeanBagIDNotRecognisedException;
 import beanbags.BeanBagMismatchException;
 import beanbags.BeanBagNotInStockException;
-import beanbags.BeanBagStore;
 import beanbags.IllegalIDException;
 import beanbags.IllegalNumberOfBeanBagsAddedException;
 import beanbags.IllegalNumberOfBeanBagsReservedException;
@@ -33,7 +32,10 @@ public class JarProcessTestApp {
                 + goodStore.beanBagsInStock()
                 + " beanbags in stock.");
 		
-		/*
+		/* =================
+		 * ADD BEANBAGS TEST
+		 * =================
+		 *
 		 * Test: Add 10 beanbags to stock.
 		 * Expected result: Successfully added.
 		 * Result: Successfully added.
@@ -48,7 +50,7 @@ public class JarProcessTestApp {
 		}
 		
 		/*
-		 * Test: Attempt to 10 beanbags to stock with the same ID but differing text.
+		 * Test: Attempt to add 10 beanbags to stock with the same ID but differing text.
 		 * Expected result: BeanbagMismatchException.
 		 * Result: 
 		   beanbags.BeanBagMismatchException
@@ -64,10 +66,91 @@ public class JarProcessTestApp {
 			e.printStackTrace();
 		}
 		
+		/*
+		 * Test: Attempt to add 10 beanbags to stock with an invalid month.
+		 * Expected result: InvalidMonthException.
+		 * Result: 
+		   beanbags.InvalidMonthException
+				at beanbags.Store.addBeanBags(Store.java:62)
+				at JarProcessTestApp.main(JarProcessTestApp.java:77)
+		 */
+		System.out.println("Adding 10 beanbags.");
+		try {
+			goodStore.addBeanBags(10, "bags", "bug", "F561AAAA",(short) 2020, (byte) 14);
+			System.out.println("Successfully added.");
+		} catch (IllegalNumberOfBeanBagsAddedException | BeanBagMismatchException | IllegalIDException
+				| InvalidMonthException e) {
+			e.printStackTrace();
+		}
+		
+		/*
+		 * Test: Attempt to add -1 beanbags.
+		 * Expected result: IllegalNumberOfBeanBagsAddedException.
+		 * Result: 
+		   beanbags.IllegalNumberOfBeanBagsAddedException
+				at beanbags.Store.addBeanBags(Store.java:61)
+				at JarProcessTestApp.main(JarProcessTestApp.java:94)
+		 */
+		System.out.println("Adding -1 beanbags.");
+		try {
+			goodStore.addBeanBags(-1, "bags", "bug", "F561AAAA",(short) 2020, (byte) 14);
+			System.out.println("Successfully added.");
+		} catch (IllegalNumberOfBeanBagsAddedException | BeanBagMismatchException | IllegalIDException
+				| InvalidMonthException e) {
+			e.printStackTrace();
+		}
+		
+		/*
+		 * Test: Attempt to add 10 beanbags with an invalid ID.
+		 * Expected result: IllegalIDException.
+		 * Result: 
+		   beanbags.IllegalIDException
+				at beanbags.Store.addBeanBags(Store.java:63)
+				at JarProcessTestApp.main(JarProcessTestApp.java:114)
+		 */
+		System.out.println("Adding 10 beanbags.");
+		try {
+			goodStore.addBeanBags(10, "bags", "bug", "F56heloA",(short) 2020, (byte) 12);
+			System.out.println("Successfully added.");
+		} catch (IllegalNumberOfBeanBagsAddedException | BeanBagMismatchException | IllegalIDException
+				| InvalidMonthException e) {
+			e.printStackTrace();
+		}
+		
+		/*
+		 * Test: Attempt to add 10 beanbags with a negative ID.
+		 * Expected result: IllegalIDException.
+		 * Result: 
+		   beanbags.IllegalIDException
+				at beanbags.Store.addBeanBags(Store.java:63)
+				at JarProcessTestApp.main(JarProcessTestApp.java:131)
+		 */
+		System.out.println("Adding 10 beanbags.");
+		try {
+			goodStore.addBeanBags(10, "bags", "bug", "-ABCD123",(short) 2020, (byte) 12);
+			System.out.println("Successfully added.");
+		} catch (IllegalNumberOfBeanBagsAddedException | BeanBagMismatchException | IllegalIDException
+				| InvalidMonthException e) {
+			e.printStackTrace();
+		}
+		
 		System.out.println("Store instance currently holds " + goodStore.beanBagsInStock() + " beanbags in stock.");
 		
+		
+		/* =================
+		 * RESERVE BEANBAGS TEST
+		 * =================
+		 *
+		 * Test: Attempt to reserve 10 beanbags before a price is set.
+		 * Expected result: PriceNotSetException.
+		 * Result: 
+		   beanbags.PriceNotSetException
+				at beanbags.Store.reserveBeanBags(Store.java:148)
+				at JarProcessTestApp.main(JarProcessTestApp.java:113)
+		 */
+		System.out.println("Adding 10 beanbags.");
 		try {
-			System.out.print(goodStore.reserveBeanBags(9, "12345678"));
+			System.out.print(goodStore.reserveBeanBags(10, "12345678"));
 		} catch (BeanBagNotInStockException | InsufficientStockException | IllegalNumberOfBeanBagsReservedException
 				| PriceNotSetException | BeanBagIDNotRecognisedException | IllegalIDException e) {
 			e.printStackTrace();

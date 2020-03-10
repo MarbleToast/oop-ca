@@ -243,7 +243,7 @@ public interface BeanBagStore
     /**
      * Method to return number of bean bags sold by this BeanBagStore.
      *
-     * @return                  number of bean bags sold by the store
+     * @return  				number of bean bags sold by the store
      */
     int getNumberOfSoldBeanBags();
 
