@@ -10,7 +10,7 @@ import java.io.ObjectOutputStream;
  * Store class. Implements the BeanBagStore interface, and provides
  * functionality for the back-end stock system.
  * @author 690000912
- * @author can't remember the other ID
+ * @author 690008290
  * @version 1.2
  */
 public class Store implements BeanBagStore {

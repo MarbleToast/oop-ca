@@ -1,13 +1,15 @@
 package beanbags;
 
+import java.io.Serializable;
+
 /**
  * Beanbag batch class. Stores manufacture date information, pointing
  * to an existing beanbag.
  * @author 690000912
- * @author can't remember the other ID
+ * @author 690008290
  * @version 1.0
  */
-public class BeanbagBatch {
+public class BeanbagBatch implements Serializable {
 	
 	// CLASS ATTRIBUTES
 	private String beanbagId; // Beanbag ID

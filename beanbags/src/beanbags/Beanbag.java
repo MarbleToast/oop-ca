@@ -1,13 +1,15 @@
 package beanbags;
 
+import java.io.Serializable;
+
 /**
  * Beanbag class. Stores information on a particular beanbag, and contains
  * methods for manipulating said information.
  * @author 690000912
- * @author can't remember the other ID
+ * @author 690008290
  * @version 1.1
  */
-public class Beanbag {
+public class Beanbag implements Serializable {
 	
 	//CLASS ATTRIBUTES
 	private String name; // Beanbag name
